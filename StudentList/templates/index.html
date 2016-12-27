@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Student</title>
+  <script src="/static/lib/angular/angular.min.js"></script>
+  <script src="/static/js/controllers.js"></script>
+</head>
+<body>
+<a href="{% url 'insert' %}">Add new student</a>
+<div class="main" ng-controller="studentController">
+  <ul class="artistlist">
+    <li class="artist cf" ng-repeat="student in students">
+      <div class="info">
+       {$student.name$}  &nbsp&nbsp&nbsp  {$student.gender$}&nbsp&nbsp&nbsp  {$student.birthday$} &nbsp&nbsp&nbsp {$student.register_date$}                          
+      <a href="{% url 'update' student.id %}">Edit</a>
+      <a href="{% url 'delete' student.id %}">Delete</a>
+      </div>
+    </li>
+  </ul>
+</div>
+</body>
+</html>
