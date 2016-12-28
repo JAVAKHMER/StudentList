@@ -13,8 +13,7 @@
     <li class="artist cf" ng-repeat="student in students">
       <div class="info">
        {$student.name$}  &nbsp&nbsp&nbsp  {$student.gender$}&nbsp&nbsp&nbsp  {$student.birthday$} &nbsp&nbsp&nbsp {$student.register_date$}                          
-      <a href="{% url 'update' student.id %}">Edit</a>
-      <a href="{% url 'delete' student.id %}">Delete</a>
+      <a href="/update/{$student.id$}">Edit</a>
       </div>
     </li>
   </ul>
