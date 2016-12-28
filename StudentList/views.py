@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from StudentList.forms import StudentForm
 from StudentList.models import Student
 from django.shortcuts import render, redirect, get_object_or_404
+from datetime import datetime
 class DisplayStudentView(APIView):
     def get(self,request):
         students = Student.objects.all()
@@ -46,8 +47,9 @@ class InsertStudent(APIView):
     def get(self,request):
         return render(request,'insert.html')
 class UpdateStudent(APIView):
-    def get(self,request):
-        return render(request,'insert.html')
+    def get(self,request,id_student):
+        student = Student.objects.get(id=id_student)
+        return render(request,'update.html',{'stu':student})
        
     
     

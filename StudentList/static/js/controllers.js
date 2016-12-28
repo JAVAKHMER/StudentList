@@ -12,15 +12,15 @@ myApp.controller('studentController', ['$scope', '$http', function($scope, $http
 		  $http.get('/api/students.json/').success(function(data) {
 		    $scope.students = data.students;
 		  });
-          $scope.originalStudent = {
-              name: 'panha',
-              birthday: new Date('12/07/1994'),
-              register_date: new Date('12/27/2016'),
-              gender: 'M',
-          };
-
-          //copy originalStudent to student. student will be bind to a form 
-          $scope.student = angular.copy($scope.originalStudent);
+//          $scope.originalStudent = {
+//              name: 'panha',
+//              birthday: new Date('12/07/1994'),
+//              register_date: new Date('12/27/2016'),
+//              gender: 'M',
+//          };
+//
+//          //copy originalStudent to student. student will be bind to a form 
+//          $scope.student = angular.copy($scope.originalStudent);
 
           //create submitStudentForm() function. This will be called when user submits the form
           $scope.submitStudnetForm = function () {
