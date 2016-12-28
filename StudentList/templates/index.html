@@ -5,22 +5,67 @@
   <title>Student</title>
   <script src="/static/lib/angular/angular.min.js"></script>
   <script src="/static/js/controllers.js"></script>
+  <style>
+			table {
+			    font-family: arial, sans-serif;
+			    width: 40%;
+			}
+			
+			td, th {
+			    text-align: center;
+			    padding: 8px;
+			}
+			
+	</style>
 </head>
-<body>
-<a href="{% url 'insert' %}">Add new student</a>
-<div class="main" ng-controller="studentController">
-  <ul class="artistlist">
-    <li class="artist cf" ng-repeat="student in students">
-      <div class="info">
-       {$student.name$}  &nbsp&nbsp&nbsp  {$student.gender$}&nbsp&nbsp&nbsp  {$student.birthday$} &nbsp&nbsp&nbsp {$student.register_date$}                          
-      <a href="/update/{$student.id$}">Edit</a>
-      <form ng-submit="deleteStudentForm(student.id)" >{% csrf_token %}
-      <input type="submit" value="Delete"/>
-      </form>
-      <!-- <a href="/delete/{$student.id$}">Delete</a> -->
-      </div>
-    </li>
-  </ul>
-</div>
+<body ng-controller="studentController">
+<!-- <a href="{% url 'insert' %}">Add new student</a> -->
+	<form ng-submit="submitStudnetForm()">{% csrf_token %}
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Gender</th>
+				<th>Birthday</th>
+				<th>Register Date</th>
+			</tr>
+			<tr>
+				<td><input type="text" id="name" ng-model="student.name" /></td>
+				<td>
+					<select id="gender" ng-model="student.gender">
+	             	<option value="M">Male</option>
+	                <option value="F">Female</option>
+	            	</select>
+	            </td>
+				<td><input type="text" id="birthday" ng-model="student.birthday" /></td>
+				<td><input type="text" id="register_date" ng-model="student.register_date" /> </td>
+			</tr>
+		</table>
+        <input type="submit" value="Submit" />
+        <input type="reset" ng-click="resetForm()" value="Reset" /><br /><br />
+    </form>   
+	<div class="main" ng-init="initFirst()">
+	  
+	      <table >
+				<tr>
+					<th>Name</th>
+					<th>Gender</th>
+					<th>Birthday</th>
+					<th>Register Date</th>
+					
+				</tr>
+				
+				<tr ng-repeat="student in students" >
+					<td>{$student.name$}</td>
+					<td>{$student.gender$}</td>
+					<td>{$student.birthday$} </td>
+					<td>{$student.register_date$}</td>
+					<td>
+						<input type="button" ng-click="updateStudentForm(student.id)" value="Edit" />
+	     				<input type="button" ng-click="deleteStudentForm(student.id)" value="Delete" />
+	     			</td>
+				</tr>
+			</table>
+	      
+     </div>
 </body>
 </html>

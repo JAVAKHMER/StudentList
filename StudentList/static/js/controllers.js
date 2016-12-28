@@ -37,6 +37,7 @@ myApp.controller('studentController', ['$scope', '$http', function($scope, $http
 
               var onSuccess = function (data, status, headers, config) {
                   alert('Student delete successfully.');
+                  $scope.initFirst();
               };
 
               var onError = function (data, status, headers, config) {
@@ -46,9 +47,13 @@ myApp.controller('studentController', ['$scope', '$http', function($scope, $http
               $http.delete('/api/student.json/'+student_id)
                   .success(onSuccess)
                   .error(onError);
-
           };
           
+          $scope.initFirst=function(){
+        	  $http.get('/api/students.json/').success(function(data) {
+      		    $scope.students = data.students;
+      		  });
+          }
 	}]);
 //myApp.controller('MyController', function MyController($scope, $http) {
 //	$http({

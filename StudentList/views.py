@@ -50,10 +50,6 @@ class UpdateStudent(APIView):
     def get(self,request,id_student):
         student = Student.objects.get(id=id_student)
         return render(request,'update.html',{'stu':student})
-class DeleteStudent(APIView):
-    def get(self,request,id_student):
-        student = Student.objects.get(id=id_student)
-        return render(request,'delete.html',{'stu':student})        
     
     
     
