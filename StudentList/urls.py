@@ -4,6 +4,7 @@ from django.contrib import admin
 from StudentList.views import DisplayStudentView, updateStudentView, deleteStudentView,\
     insertStudentView, HomePage, InsertStudent, UpdateStudent
 from django.shortcuts import render
+from api.views import StudentAPIView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -14,6 +15,6 @@ urlpatterns = [
     url(r'^$', HomePage.as_view(),name="home_page"),
     url(r'^insert$',InsertStudent.as_view(),name="insert"),
     url(r'^update/(\d+)$',UpdateStudent.as_view(),name="update"),
-    url(r'^delete/(\d+)$',UpdateStudent.as_view(),name="delete"),
+    url(r'^delete/(\d+)$',StudentAPIView.as_view(),name="delete"),
     url(r'^api/', include('api.urls')),
 ]

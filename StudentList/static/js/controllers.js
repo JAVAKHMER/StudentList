@@ -12,17 +12,6 @@ myApp.controller('studentController', ['$scope', '$http', function($scope, $http
 		  $http.get('/api/students.json/').success(function(data) {
 		    $scope.students = data.students;
 		  });
-//          $scope.originalStudent = {
-//              name: 'panha',
-//              birthday: new Date('12/07/1994'),
-//              register_date: new Date('12/27/2016'),
-//              gender: 'M',
-//          };
-//
-//          //copy originalStudent to student. student will be bind to a form 
-//          $scope.student = angular.copy($scope.originalStudent);
-
-          //create submitStudentForm() function. This will be called when user submits the form
           $scope.submitStudnetForm = function () {
 
               var onSuccess = function (data, status, headers, config) {
@@ -38,11 +27,28 @@ myApp.controller('studentController', ['$scope', '$http', function($scope, $http
                   .error(onError);
 
           };
-
-          //6. create resetForm() function. This will be called on Reset button click.  
+          
+          //create resetForm() function. This will be called on Reset button click.  
           $scope.resetForm = function () {
               $scope.student = angular.copy($scope.OriginalStudent);
           };
+          
+          $scope.deleteStudentForm = function (student_id) {
+
+              var onSuccess = function (data, status, headers, config) {
+                  alert('Student delete successfully.');
+              };
+
+              var onError = function (data, status, headers, config) {
+                  alert('Error occured.');
+              }
+
+              $http.delete('/api/student.json/'+student_id)
+                  .success(onSuccess)
+                  .error(onError);
+
+          };
+          
 	}]);
 //myApp.controller('MyController', function MyController($scope, $http) {
 //	$http({

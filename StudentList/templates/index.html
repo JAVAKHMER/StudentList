@@ -14,6 +14,10 @@
       <div class="info">
        {$student.name$}  &nbsp&nbsp&nbsp  {$student.gender$}&nbsp&nbsp&nbsp  {$student.birthday$} &nbsp&nbsp&nbsp {$student.register_date$}                          
       <a href="/update/{$student.id$}">Edit</a>
+      <form ng-submit="deleteStudentForm(student.id)" >{% csrf_token %}
+      <input type="submit" value="Delete"/>
+      </form>
+      <!-- <a href="/delete/{$student.id$}">Delete</a> -->
       </div>
     </li>
   </ul>
