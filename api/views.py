@@ -3,6 +3,7 @@ from StudentList.models import Student
 from api.serializers import StudentSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from django.http.response import Http404
 class StudentsAPIViews(APIView):
     
     def get(self, request):
@@ -21,30 +22,51 @@ class StudentsAPIViews(APIView):
         if lserializer.is_valid():
             lserializer.save()
             return Response(lserializer.data, status=status.HTTP_201_CREATED)
-        else:
-            print lserializer.errors
         return Response(lserializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class StudentAPIView(APIView):
-    
-    def put(self,request,obj_id):
+    def get_object(self, pk):
         try:
-            student = Student.objects.get(obj_id)
-            lserializer = StudentSerializer(student, data=request.data)
-            if lserializer.is_valid():
-                lserializer.save()
-                return Response(lserializer.data)
+            return Student.objects.get(pk=pk)
         except Student.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        
-    def delete(self,request,obj_id):
-        try:
-            student = Student.objects.get(obj_id)
-            student.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except Student.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        student = self.get_object(pk)
+        serializer = StudentSerializer(student)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        student = self.get_object(pk)
+        serializer = StudentSerializer(student, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        student = self.get_object(pk)
+        student.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
+#     def put(self,request,obj_id):
+#         try:
+#             student = Student.objects.get(obj_id)
+#             lserializer = StudentSerializer(student, data=request.data, partial=True)
+#             if lserializer.is_valid():
+#                 lserializer.save()
+#                 return Response(lserializer.data)
+#         except Student.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+#         
+#     def delete(self,request,obj_id):
+#         try:
+#             student = Student.objects.get(obj_id)
+#             student.save()
+#             return Response(status=status.HTTP_204_NO_CONTENT)
+#         except Student.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+#     
     
 #     def put(self, request, obj_id):
 #         student = self.get_object(obj_id)
