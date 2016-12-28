@@ -5,24 +5,36 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http.response import Http404
 class StudentsAPIViews(APIView):
+    def get(self, request, format=None):
+        students = Student.objects.all()
+        serializer = StudentSerializer(students, many=True)
+        lret_dic = dict(students=serializer.data)
+        return Response(lret_dic, status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+        serializer = StudentSerializer(data=request.data.get('student'))
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def get(self, request):
-        lret_dict = dict()
-        try:
-            lstudents = Student.objects.all()
-            lserializer = StudentSerializer(lstudents, many=True)
-            lret_dict = dict(students=lserializer.data)
-        except Exception, err:
-            print(err)
-            pass   
-        return Response(lret_dict, status=status.HTTP_200_OK)
-    
-    def post(self, request):
-        lserializer = StudentSerializer(data=request.DATA.get('student'))
-        if lserializer.is_valid():
-            lserializer.save()
-            return Response(lserializer.data, status=status.HTTP_201_CREATED)
-        return Response(lserializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     def get(self, request):
+#         lret_dict = dict()
+#         try:
+#             lstudents = Student.objects.all()
+#             lserializer = StudentSerializer(lstudents, many=True)
+#             lret_dict = dict(students=lserializer.data)
+#         except Exception, err:
+#             print(err)
+#             pass   
+#         return Response(lret_dict, status=status.HTTP_200_OK)
+#     
+#     def post(self, request):
+#         lserializer = StudentSerializer(data=request.DATA.get('student'))
+#         if lserializer.is_valid():
+#             lserializer.save()
+#             return Response(lserializer.data, status=status.HTTP_201_CREATED)
+#         return Response(lserializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class StudentAPIView(APIView):
     def get_object(self, pk):
