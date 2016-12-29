@@ -33,12 +33,29 @@
 				</tr>
 				
 				<tr ng-repeat="student in students" >
-					<td>{$student.name$}</td>
-					<td>{$student.gender$}</td>
-					<td>{$student.birthday$} </td>
-					<td>{$student.register_date$}</td>
 					<td>
-						<input type="button" ng-click="updateStudentForm(student.id)" value="Edit" />
+						<div>
+							<span ng-bind="student.name" ng-show="!student.is_edit"> </span>
+							<input type="text" ng-model="student.name" ng-show="student.is_edit">
+						</div>
+					</td>
+					<td>
+						<span ng-bind="student.gender" ng-show="!student.is_edit"> </span>
+						<select ng-model="student.gender" ng-show="student.is_edit">
+		             			<option value="Male">Male</option>
+		                		<option value="Female">Female</option>
+		            	</select>
+					</td>
+					<td>
+						<span ng-bind="student.birthday" ng-show="!student.is_edit"> </span>
+						<input type="text"  ng-model="student.birthday" ng-show="student.is_edit"/>
+					 </td>
+					<td>
+						<span ng-bind="student.register_date" ng-show="!student.is_edit"> </span>
+						<input type="text"  ng-model="student.register_date"ng-show="student.is_edit"/>
+					</td>
+					<td>
+						<input type="button" ng-click="student.is_edit=true" value="Edit" />
 	     				<input type="button" ng-click="deleteStudentForm(student.id)" value="Delete" />
 	     			</td>
 				 </tr>
@@ -46,8 +63,8 @@
 						<td> <input type="text" id="name" ng-model="student.name" /></td>
 						<td>
 							<select id="gender" ng-model="student.gender">
-		             			<option value="M">Male</option>
-		                		<option value="F">Female</option>
+		             			<option value="Male">Male</option>
+		                		<option value="Female">Female</option>
 		            		</select>
 		            	</td>
 						<td><input type="text" id="birthday" ng-model="student.birthday" /></td>

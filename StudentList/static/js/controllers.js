@@ -60,5 +60,21 @@ myApp.controller('studentController', ['$scope', '$http', function($scope, $http
           $scope.addNewStudent = function(){
         	  $scope.formStudent = true;
           };
+//          $scope.updateStudentForm = function(student){
+////        	  $scope.edit_id = student.id;
+//        	  var onSuccess = function (data, status, headers, config) {
+//                  alert('Student saved successfully.');
+//                  $scope.formStudent = false;
+//                  $scope.initFirst();
+//              };
+//
+//              var onError = function (data, status, headers, config) {
+//                  alert('Error occured.');
+//              }
+//
+//              $http.put('/api/student.json/'+student.id, { student:$scope.student })
+//                  .success(onSuccess)
+//                  .error(onError);
+//          };
 	}]);
 
