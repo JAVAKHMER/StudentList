@@ -9,9 +9,18 @@ myApp.config(['$interpolateProvider','$httpProvider',
 ]);
     
 myApp.controller('studentController', ['$scope', '$http', function($scope, $http) {
-		  $http.get('/api/students.json/').success(function(data) {
-		    $scope.students = data.students;
-		  });
+			$http({
+		        method : 'GET',
+		        url : '/api/students.json/'
+		    }).then(function mySucces(response) {
+		    	$scope.students = data.students;
+//		        $scope.myWelcome = response.data;
+		    }, function myError(response) {
+		        $scope.students = response.statusText;
+		    });
+//		  $http.get('/api/students.json/').success(function(data) {
+//		    $scope.students = data.students;
+//		  });
           $scope.submitStudnetForm = function () {
 
               var onSuccess = function (data, status, headers, config) {
