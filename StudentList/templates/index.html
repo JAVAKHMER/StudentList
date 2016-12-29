@@ -8,7 +8,7 @@
   <style>
 			table {
 			    font-family: arial, sans-serif;
-			    width: 50%;
+			    width: 70%;
 			}
 			
 			td, th {
@@ -52,10 +52,11 @@
 					 </td>
 					<td>
 						<span ng-bind="student.register_date" ng-show="!student.is_edit"> </span>
-						<input type="text"  ng-model="student.register_date"ng-show="student.is_edit"/>
+						<input type="text"  ng-model="student.register_date" ng-show="student.is_edit"/>
 					</td>
 					<td>
-						<input type="button" ng-click="student.is_edit=true" value="Edit" />
+						<input type="button" ng-show="student.is_edit" value="Save" />
+						<input type="button" ng-click="student.is_edit=true" value="Edit" ng-show="!student.is_edit"/>
 	     				<input type="button" ng-click="deleteStudentForm(student.id)" value="Delete" />
 	     			</td>
 				 </tr>
