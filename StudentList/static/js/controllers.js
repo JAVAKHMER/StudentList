@@ -16,6 +16,8 @@ myApp.controller('studentController', ['$scope', '$http', function($scope, $http
 
               var onSuccess = function (data, status, headers, config) {
                   alert('Student saved successfully.');
+                  $scope.formStudent = false;
+                  $scope.initFirst();
               };
 
               var onError = function (data, status, headers, config) {
@@ -53,14 +55,10 @@ myApp.controller('studentController', ['$scope', '$http', function($scope, $http
         	  $http.get('/api/students.json/').success(function(data) {
       		    $scope.students = data.students;
       		  });
-          }
+          };
+          
+          $scope.addNewStudent = function(){
+        	  $scope.formStudent = true;
+          };
 	}]);
-//myApp.controller('MyController', function MyController($scope, $http) {
-//	$http({
-//        url: "/api/students.json/", 
-//        method: "GET",
-//	}).then(function(response){
-//		$scope.students = response.data.students;
-//	});
-//});
 

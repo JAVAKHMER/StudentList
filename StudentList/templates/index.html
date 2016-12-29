@@ -8,7 +8,7 @@
   <style>
 			table {
 			    font-family: arial, sans-serif;
-			    width: 40%;
+			    width: 50%;
 			}
 			
 			td, th {
@@ -20,32 +20,10 @@
 </head>
 <body ng-controller="studentController">
 <!-- <a href="{% url 'insert' %}">Add new student</a> -->
-	<form ng-submit="submitStudnetForm()">{% csrf_token %}
-		<table>
-			<tr>
-				<th>Name</th>
-				<th>Gender</th>
-				<th>Birthday</th>
-				<th>Register Date</th>
-			</tr>
-			<tr>
-				<td><input type="text" id="name" ng-model="student.name" /></td>
-				<td>
-					<select id="gender" ng-model="student.gender">
-	             	<option value="M">Male</option>
-	                <option value="F">Female</option>
-	            	</select>
-	            </td>
-				<td><input type="text" id="birthday" ng-model="student.birthday" /></td>
-				<td><input type="text" id="register_date" ng-model="student.register_date" /> </td>
-			</tr>
-		</table>
-        <input type="submit" value="Submit" />
-        <input type="reset" ng-click="resetForm()" value="Reset" /><br /><br />
-    </form>   
+	
 	<div class="main" ng-init="initFirst()">
-	  
-	      <table >
+	  	<form ng-submit="submitStudnetForm()">{% csrf_token %}
+	      	<table >
 				<tr>
 					<th>Name</th>
 					<th>Gender</th>
@@ -63,9 +41,25 @@
 						<input type="button" ng-click="updateStudentForm(student.id)" value="Edit" />
 	     				<input type="button" ng-click="deleteStudentForm(student.id)" value="Delete" />
 	     			</td>
-				</tr>
+				 </tr>
+				 <tr ng-show="formStudent">
+						<td> <input type="text" id="name" ng-model="student.name" /></td>
+						<td>
+							<select id="gender" ng-model="student.gender">
+		             			<option value="M">Male</option>
+		                		<option value="F">Female</option>
+		            		</select>
+		            	</td>
+						<td><input type="text" id="birthday" ng-model="student.birthday" /></td>
+						<td><input type="text" id="register_date" ng-model="student.register_date" /> </td>
+						<td>
+							<input type="submit" value="Submit" />
+	        				<input type="reset" ng-click="resetForm()" value="Reset" />
+						</td>
+				 	</tr>
+				 	<tr><td><input type="button" ng-click="addNewStudent()" value="Add New Student" /></td></tr>
 			</table>
-	      
+		</form>  
      </div>
 </body>
 </html>
